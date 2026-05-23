@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="EMR.Views.BedManagementView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EMR.Views"
+        mc:Ignorable="d"
+        d:DesignHeight="650" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Statistics -->
+        <Border Grid.Row="0" Background="#E3F2FD" Padding="15" Margin="0,0,0,15" CornerRadius="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Total Beds" FontSize="12" Foreground="#666"/>
+                    <TextBlock Text="{Binding TotalBeds}" FontSize="24" FontWeight="Bold" Foreground="#2196F3"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Available" FontSize="12" Foreground="#666"/>
+                    <TextBlock Text="{Binding AvailableBeds}" FontSize="24" FontWeight="Bold" Foreground="#4CAF50"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Occupied" FontSize="12" Foreground="#666"/>
+                    <TextBlock Text="{Binding OccupiedBeds}" FontSize="24" FontWeight="Bold" Foreground="#FF9800"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3">
+                    <TextBlock Text="Occupancy Rate" FontSize="12" Foreground="#666"/>
+                    <TextBlock Text="{Binding OccupancyRate, StringFormat={}{0:F1}%}" FontSize="24" FontWeight="Bold" Foreground="#F44336"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Toolbar -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,15">
+            <Button Content="Assign Bed" Command="{Binding AssignBedCommand}" 
+                    Style="{StaticResource SuccessButtonStyle}" Margin="0,0,10,0"/>
+            <Button Content="Discharge" Command="{Binding DischargeBedCommand}" 
+                    Style="{StaticResource DangerButtonStyle}" Margin="0,0,10,0"/>
+            <Button Content="Refresh" Command="{Binding RefreshCommand}" 
+                    Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,20,0"/>
+
+            <TextBlock Text="Filter by Ward:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox ItemsSource="{Binding Wards}" SelectedItem="{Binding SelectedWard}"
+                      DisplayMemberPath="WardName" Width="150" Padding="8" Height="40"/>
+        </StackPanel>
+
+        <!-- Content -->
+        <TabControl Grid.Row="2">
+            <TabItem Header="Wards">
+                <DataGrid ItemsSource="{Binding Wards}" SelectedItem="{Binding SelectedWard}"
+                          AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#F0F0F0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding WardId}" Width="50"/>
+                        <DataGridTextColumn Header="Ward Name" Binding="{Binding WardName}" Width="150"/>
+                        <DataGridTextColumn Header="Type" Binding="{Binding WardType}" Width="100"/>
+                        <DataGridTextColumn Header="Floor" Binding="{Binding Floor}" Width="60"/>
+                        <DataGridTextColumn Header="Total Beds" Binding="{Binding TotalBeds}" Width="90"/>
+                        <DataGridTextColumn Header="Available" Binding="{Binding AvailableBeds}" Width="90"/>
+                        <DataGridTextColumn Header="Occupied" Binding="{Binding OccupiedBeds}" Width="90"/>
+                        <DataGridTextColumn Header="Occupancy %" Binding="{Binding OccupancyRate, StringFormat={}{0:F1}%}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Beds">
+                <DataGrid ItemsSource="{Binding Beds}" SelectedItem="{Binding SelectedBed}"
+                          AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#F0F0F0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Bed Number" Binding="{Binding BedNumber}" Width="100"/>
+                        <DataGridTextColumn Header="Ward" Binding="{Binding WardName}" Width="150"/>
+                        <DataGridTextColumn Header="Type" Binding="{Binding BedType}" Width="100"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+                        <DataGridTextColumn Header="Daily Charge" Binding="{Binding DailyCharge, StringFormat=C}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Active Admissions">
+                <DataGrid ItemsSource="{Binding Assignments}" SelectedItem="{Binding SelectedAssignment}"
+                          AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#F0F0F0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding AssignmentId}" Width="50"/>
+                        <DataGridTextColumn Header="Bed" Binding="{Binding BedNumber}" Width="80"/>
+                        <DataGridTextColumn Header="Ward" Binding="{Binding WardName}" Width="130"/>
+                        <DataGridTextColumn Header="Patient" Binding="{Binding PatientName}" Width="140"/>
+                        <DataGridTextColumn Header="Doctor" Binding="{Binding DoctorName}" Width="140"/>
+                        <DataGridTextColumn Header="Admission Date" Binding="{Binding AdmissionDate, StringFormat=dd/MM/yyyy}" Width="120"/>
+                        <DataGridTextColumn Header="Days" Binding="{Binding DaysAdmitted}" Width="60"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="80"/>
+                        <DataGridTextColumn Header="Reason" Binding="{Binding Reason}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

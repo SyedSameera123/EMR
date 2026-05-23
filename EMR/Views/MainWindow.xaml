@@ -1,0 +1,211 @@
+﻿<Window x:Class="EMR.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:EMR.ViewModels"
+        xmlns:views="clr-namespace:EMR.Views"
+        Title="MainWindow" 
+        Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Navigation Bar -->
+        <Border Grid.Row="0" Background="#2196F3" Padding="20,12">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="🏥" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="White"/>
+                    <TextBlock Text="EMR (Electronic Medical Records)" 
+                               Foreground="White" FontSize="18" FontWeight="Bold"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding WelcomeMessage}" 
+                               Foreground="White" FontSize="14"
+                               VerticalAlignment="Center" Margin="0,0,20,0"/>
+                    <Button Content="Logout" Command="{Binding LogoutCommand}"
+                            Padding="20,8" FontSize="13" FontWeight="SemiBold"
+                            Background="#F44336" Foreground="White" 
+                            BorderThickness="0" Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                                                    CornerRadius="4" Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#D32F2F"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Sidebar Navigation -->
+            <Border Grid.Column="0" Background="#263238" BorderBrush="#1C2427" BorderThickness="0,0,1,0">
+                <StackPanel Margin="0,30,0,0">
+                    <TextBlock Text="MODULES" Foreground="#90A4AE" FontSize="11" FontWeight="Bold" 
+                               Margin="20,0,0,15" Opacity="0.7"/>
+
+                    <Button Command="{Binding ShowCaretakerCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Padding" Value="20,15"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Margin" Value="0,0,0,2"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                                                    Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#37474F"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="👨‍⚕️" FontSize="16" Margin="0,0,12,0"/>
+                            <TextBlock Text="Caretaker Module" FontSize="14"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Command="{Binding ShowAmbulatoryCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Padding" Value="20,15"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Margin" Value="0,0,0,2"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                                                    Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#37474F"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🩺" FontSize="16" Margin="0,0,12,0"/>
+                            <TextBlock Text="Ambulatory Services" FontSize="14"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Command="{Binding ShowBedManagementCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Padding" Value="20,15"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Margin" Value="0,0,0,2"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                                                    Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#37474F"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🛏️" FontSize="16" Margin="0,0,12,0"/>
+                            <TextBlock Text="Bed Management" FontSize="14"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- Content Display Area -->
+            <Border Grid.Column="1" Background="White" Padding="25">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Module Title -->
+                    <TextBlock Text="{Binding CurrentModule}" 
+                               FontSize="26" FontWeight="Bold" 
+                               Foreground="#263238" Margin="0,0,0,25"/>
+
+                    <!-- Dynamic Content -->
+                    <ContentControl Grid.Row="1" Content="{Binding CurrentView}">
+                        <ContentControl.Resources>
+                            <DataTemplate DataType="{x:Type vm:CaretakerViewModel}">
+                                <views:CaretakerView/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type vm:AmbulatoryViewModel}">
+                                <views:AmbulatoryView/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type vm:BedManagementViewModel}">
+                                <views:BedManagementView/>
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
