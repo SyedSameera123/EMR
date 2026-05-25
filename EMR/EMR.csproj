@@ -61,6 +61,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\FORGIT.cs" />
+    <Compile Include="Data\venkatGit.cs" />
     <Compile Include="Services\AppointmentService.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\BedService.cs" />
