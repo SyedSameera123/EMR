@@ -9,8 +9,6 @@ namespace EMR.Data
     internal class venkatGit
     {
         public string Id { get; set; }
-        public string Name { get; set; }
-        public string Version { get; set; }
         public venkatGit() { }
     }
 }

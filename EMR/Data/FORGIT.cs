@@ -12,8 +12,7 @@ namespace EMR.Data
         {
             int a = 10;
             int b = 20;
-            int c = a + b;
-            Console.WriteLine($"The sum of {a} and {b} is {c}");
+            Console.WriteLine($"The sum of {a} and {b}");
         }
     }
 }
